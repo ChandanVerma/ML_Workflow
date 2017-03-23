@@ -1,0 +1,14 @@
+Continuous_df <- function(train){
+  
+  con_df<- as.data.frame(matrix(data = NA, ncol = ncol(train), nrow = NROW(train)))
+  colnames(con_df)<- colnames(train)
+  for(i in 1:ncol(train))
+  {
+    if(class(train[,i])=='numeric' || class(train[,i])=='integer')
+    {
+      con_df[,i]<- train[,i]
+    }
+    
+  }
+  condf1<-con_df[colSums(!is.na(con_df)) > 0]
+}
