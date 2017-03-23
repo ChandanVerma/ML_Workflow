@@ -1,0 +1,20 @@
+Continuous_descriptive <- function(cont_df){
+  continuous_descriptive <- as.data.frame(matrix(data = 'NA',ncol = 10),stringsAsFactors=FALSE)
+  names(continuous_descriptive)[1:10]<- c('Column_Name','Min','Max','Mean','Std.Dev','NA_rec','Total_records','%_NA','Missing_rec','%_Missing')
+  
+  for(i in 1:ncol(cont_df))
+  {
+    continuous_descriptive[i,1]<- names(cont_df)[i]
+    continuous_descriptive[i,2]<- min(cont_df[,i],na.rm = T)
+    continuous_descriptive[i,3]<- max(cont_df[,i], na.rm = T)
+    continuous_descriptive[i,4]<- round(mean(cont_df[,i], na.rm = T),2)
+    continuous_descriptive[i,5]<- round(sd(cont_df[,i], na.rm = T),2)
+    continuous_descriptive[i,6]<- sum(is.na(cont_df[,i]))
+    continuous_descriptive[i,7]<- NROW(cont_df)
+    continuous_descriptive[i,8]<- round((sum(is.na(cont_df[,i]))/NROW(cont_df))*100,2)
+    continuous_descriptive[i,9]<- sum(is.null(cont_df[,i]))
+    continuous_descriptive[i,10]<- round((sum(is.null(cont_df[,i]))/NROW(cont_df))*100,2)
+    
+  }
+  return(continuous_descriptive)
+}
